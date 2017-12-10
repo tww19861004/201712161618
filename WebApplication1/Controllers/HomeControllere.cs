@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace NancyWebTest.Module
+namespace NancyWebTest.Controllers
 {
     public class TestClass
     {
@@ -19,9 +19,9 @@ namespace NancyWebTest.Module
         public string ID { get; set; }
         public string Name { get; set; }
     }
-    public class HomeModule : BaseModule
+    public class HomeController : BaseController
     {
-        public HomeModule()
+        public HomeController()
         {
             //首页
             Get["/nancy/Home"] = parameters => ReturnHomeAction();

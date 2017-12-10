@@ -5,14 +5,14 @@ using System.Web;
 using Nancy;
 using System.Dynamic;
 
-namespace NancyWebTest.Module
+namespace NancyWebTest.Controllers
 {
-    public class BaseModule : NancyModule
+    public class BaseController : NancyModule
     {
         //声明动态对象，用于控制器绑定数据传递到页面
         public dynamic DynamicModel = new ExpandoObject();
 
-        public BaseModule()
+        public BaseController()
         {
             SetupModelDefaults();
         }

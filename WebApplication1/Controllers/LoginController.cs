@@ -4,11 +4,11 @@ using System.Linq;
 using System.Web;
 using Nancy;
 
-namespace WebApplication1.Modules
+namespace WebApplication1.Controllers
 {
-    public class LoginModule : NancyModule
+    public class LoginController : NancyModule
     {
-        public LoginModule()
+        public LoginController()
         {
             //Get["/{uname}/{pwd}"] = p =>
             //{
