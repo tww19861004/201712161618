@@ -62,7 +62,7 @@ namespace NancyWebTest.Controllers
             if (1 == 1)
             {
                 //当前用户登录状态有效
-                return Response.AsRedirect("/Login");
+                return Response.AsRedirect("Login/Login");
             }
             else
             {
