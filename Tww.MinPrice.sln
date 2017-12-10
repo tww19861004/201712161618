@@ -19,6 +19,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetaPocoTest", "PetaPocoTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tww.MinPrice.HttpFun", "..\Tww.MinPrice.HttpFun\Tww.MinPrice.HttpFun.csproj", "{42C6D46A-7816-4D2C-90FA-5063E727BEA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{716633D6-49B0-421C-8A5D-2539B041044D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,10 @@ Global
 		{42C6D46A-7816-4D2C-90FA-5063E727BEA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42C6D46A-7816-4D2C-90FA-5063E727BEA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42C6D46A-7816-4D2C-90FA-5063E727BEA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{716633D6-49B0-421C-8A5D-2539B041044D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716633D6-49B0-421C-8A5D-2539B041044D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716633D6-49B0-421C-8A5D-2539B041044D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716633D6-49B0-421C-8A5D-2539B041044D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
