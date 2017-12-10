@@ -1,0 +1,63 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nancy", "Nancy.csproj", "{313802DA-D423-4A00-A772-6F310B52CCAC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tww.MinPrice.Models", "..\Tww.MinPrice.Models\Tww.MinPrice.Models.csproj", "{3DDAAA47-E626-4872-A5E1-56CD99D2AE61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tww.LightHelper", "Tww.LightHelper", "{92C5140C-DE6F-40EA-A9A7-2E5DFDD4A7DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SQLiteHelper", "SQLiteHelper\SQLiteHelper.csproj", "{052372BA-06E3-43D8-AA31-A23F496FE0FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetapocoHelper", "PetapocoHelper\PetapocoHelper.csproj", "{9DA9991B-2F95-4198-9FAF-CC7D3675E7FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSONHelper", "JSONHelper\JSONHelper.csproj", "{B1BA89E4-F8B7-4DB2-AF9F-4C7EBCD5AEEC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestDemo", "TestDemo", "{28E2F403-B22C-460A-AA93-133281034CD5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetaPocoTest", "PetaPocoTest\PetaPocoTest.csproj", "{30B6A9BE-9185-4FB3-A84F-9DD28B051A23}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{313802DA-D423-4A00-A772-6F310B52CCAC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{313802DA-D423-4A00-A772-6F310B52CCAC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{313802DA-D423-4A00-A772-6F310B52CCAC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{313802DA-D423-4A00-A772-6F310B52CCAC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DDAAA47-E626-4872-A5E1-56CD99D2AE61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DDAAA47-E626-4872-A5E1-56CD99D2AE61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DDAAA47-E626-4872-A5E1-56CD99D2AE61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DDAAA47-E626-4872-A5E1-56CD99D2AE61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{052372BA-06E3-43D8-AA31-A23F496FE0FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{052372BA-06E3-43D8-AA31-A23F496FE0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{052372BA-06E3-43D8-AA31-A23F496FE0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{052372BA-06E3-43D8-AA31-A23F496FE0FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9DA9991B-2F95-4198-9FAF-CC7D3675E7FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DA9991B-2F95-4198-9FAF-CC7D3675E7FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DA9991B-2F95-4198-9FAF-CC7D3675E7FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DA9991B-2F95-4198-9FAF-CC7D3675E7FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1BA89E4-F8B7-4DB2-AF9F-4C7EBCD5AEEC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1BA89E4-F8B7-4DB2-AF9F-4C7EBCD5AEEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1BA89E4-F8B7-4DB2-AF9F-4C7EBCD5AEEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1BA89E4-F8B7-4DB2-AF9F-4C7EBCD5AEEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30B6A9BE-9185-4FB3-A84F-9DD28B051A23}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30B6A9BE-9185-4FB3-A84F-9DD28B051A23}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30B6A9BE-9185-4FB3-A84F-9DD28B051A23}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30B6A9BE-9185-4FB3-A84F-9DD28B051A23}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{052372BA-06E3-43D8-AA31-A23F496FE0FB} = {92C5140C-DE6F-40EA-A9A7-2E5DFDD4A7DC}
+		{9DA9991B-2F95-4198-9FAF-CC7D3675E7FF} = {92C5140C-DE6F-40EA-A9A7-2E5DFDD4A7DC}
+		{B1BA89E4-F8B7-4DB2-AF9F-4C7EBCD5AEEC} = {92C5140C-DE6F-40EA-A9A7-2E5DFDD4A7DC}
+		{28E2F403-B22C-460A-AA93-133281034CD5} = {92C5140C-DE6F-40EA-A9A7-2E5DFDD4A7DC}
+		{30B6A9BE-9185-4FB3-A84F-9DD28B051A23} = {28E2F403-B22C-460A-AA93-133281034CD5}
+	EndGlobalSection
+EndGlobal
