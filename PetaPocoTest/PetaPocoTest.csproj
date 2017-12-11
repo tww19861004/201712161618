@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\JSONHelper\JSONHelper.csproj">
+      <Project>{b1ba89e4-f8b7-4db2-af9f-4c7ebcd5aeec}</Project>
+      <Name>JSONHelper</Name>
+    </ProjectReference>
     <ProjectReference Include="..\PetapocoHelper\PetapocoHelper.csproj">
       <Project>{9da9991b-2f95-4198-9faf-cc7d3675e7ff}</Project>
       <Name>PetapocoHelper</Name>

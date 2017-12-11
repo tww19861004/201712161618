@@ -123,12 +123,18 @@
   <ItemGroup>
     <Compile Include="Controllers\BaseAsyncController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\HomeControllere.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Modules\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Tww.MinPrice.Models\Tww.MinPrice.Models.csproj">
+      <Project>{3ddaaa47-e626-4872-a5e1-56cd99d2ae61}</Project>
+      <Name>Tww.MinPrice.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

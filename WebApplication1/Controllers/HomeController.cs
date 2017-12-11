@@ -29,9 +29,14 @@ namespace NancyWebTest.Controllers
             Get["/nancy/getStringValue"] = parameters => ReturnStringAction();
             //重定向页面演示
             Get["/nancy/redirectOtherPage"] = parameters => ReturnRedirectAction();
+            //模拟error exception
+            
         }
         public dynamic ReturnHomeAction()
         {
+            int i = 0;
+            int j = 1;
+            decimal t = j / i;
             //单一数值
             DynamicModel.HelloWorld = "Hello world...";
             //集合数据 1

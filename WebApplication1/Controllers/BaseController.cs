@@ -23,6 +23,9 @@ namespace NancyWebTest.Controllers
             {
                 return null;
             };
+            OnError += (ctx, ex) => {
+                return null;
+            };
         }
     }
 }

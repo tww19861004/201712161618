@@ -7,6 +7,7 @@ using System.Data.SQLite;
 using System.IO;
 using System.Data.Common;
 using PetaPoco = LightHelper.PetapocoHelper;
+using LightHelper.NewtonJSONHelper;
 
 namespace PetaPocoTest
 {
@@ -31,6 +32,18 @@ namespace PetaPocoTest
     {
         static void Main(string[] args)
         {
+
+            User newUser = new User()
+            {
+                CreateTime = DateTime.Now.ToString("yyyy-MM-dd"),
+                Email = "382233701@qq.com",
+                Name = "1234",
+                Password = "234",
+                Phone = "15062437243"
+            };
+            string str = NewtonJSONHelper.ToJson(newUser);
+            return;
+
             String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
             // create a database "context" object t
             String connectionString = String.Format("Data Source={0};Version=3", fileName);
