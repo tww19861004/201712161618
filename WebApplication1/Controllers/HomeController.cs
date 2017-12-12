@@ -2,6 +2,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 using System.Web;
 
 namespace NancyWebTest.Controllers
@@ -29,9 +31,20 @@ namespace NancyWebTest.Controllers
             Get["/nancy/getStringValue"] = parameters => ReturnStringAction();
             //重定向页面演示
             Get["/nancy/redirectOtherPage"] = parameters => ReturnRedirectAction();
-            //模拟error exception
-            
+            //模拟异步
+            Get["/nancy/getstringAsync", runAsync: true] = async (parameters, cancellationToken) =>
+            {
+                return await GetHelloWorld(cancellationToken);
+            };
         }
+
+        private async Task<string> GetHelloWorld(CancellationToken cancellationToken)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            return await Task.FromResult("Hello World!"+DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+        }
+
         public dynamic ReturnHomeAction()
         {
             int i = 0;
