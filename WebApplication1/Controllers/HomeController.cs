@@ -32,9 +32,11 @@ namespace NancyWebTest.Controllers
             //重定向页面演示
             Get["/nancy/redirectOtherPage"] = parameters => ReturnRedirectAction();
             //模拟异步
-            Get["/nancy/getstringAsync", runAsync: true] = async (parameters, cancellationToken) =>
+            Get["/nancy/getstringAsync/{id}", runAsync: true] = async (parameters, cancellationToken) =>
             {
-                return await GetHelloWorld(cancellationToken);
+                //Request.Query.id
+                cancellationToken.ThrowIfCancellationRequested();
+                return await Task.FromResult(parameters.id+",Hello World!" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             };
         }
 
