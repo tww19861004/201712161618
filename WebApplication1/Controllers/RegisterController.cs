@@ -6,6 +6,7 @@ using Nancy;
 using Tww.MinPrice.Models;
 using Nancy.Extensions;
 using Nancy.ModelBinding;
+using System.Threading.Tasks;
 
 namespace WebApplication1.Controllers
 {
@@ -18,9 +19,18 @@ namespace WebApplication1.Controllers
             {
                 //{"UserName":"tww","Email":"382233701@qq.com","Password":"1234"}
                 //NewUser registerAttempt = this.Bind<NewUser>(); //model binding!                
-                //{"Id":"0","Name":"1234","Phone":"15062437243","Email":"382233701@qq.com","Password":"234","CreateTime":"2017-12-11"}
+                //{"Id":1,"Name":"1234","Phone":"15062437243","Email":"382233701@qq.com","Password":"234","CreateTime":"2017-12-11"}
                 var models = this.Bind<User>();
                 return models;
+            };
+
+            Post["/RegisterAsync",true] = async (parameters, cancellationToken) =>
+            {
+                //Request.Query.id
+                cancellationToken.ThrowIfCancellationRequested();
+                var models = this.Bind<User>();
+                return await Task.FromResult<User>(models);
+                //return await Task.FromResult(parameters.id + ",Hello World!" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
             };
         }
     }
