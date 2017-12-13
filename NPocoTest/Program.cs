@@ -15,11 +15,11 @@ namespace NPocoTest
         {
             String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
             // create a database "context" object t
-            String connectionString = "connStringName";
+            String connectionString = @"Data Source="+ fileName + ";Version=3;";
 
-            using (IDatabase db = new Database(connectionString))
+            using (IDatabase db = new Database(connectionString, NPoco.DatabaseType.SQLite))
             {
-                List<User> users = db.Fetch<User>("select * from users");
+                List<User> users = db.Fetch<User>("select * from user");
             }
         }
     }
