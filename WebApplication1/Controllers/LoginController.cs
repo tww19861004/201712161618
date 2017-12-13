@@ -41,7 +41,7 @@ namespace WebApplication1.Controllers
                     Phone = "15062437243"
                 };                
                 //Customer model = this.Bind();
-                //var models = this.Bind<Customer>();
+                //var models = this.User<Customer>();
                 //DB.Customer.Add(model);
                 //DB.Customer.Add(models);
                 //return this.Response.AsRedirect("/Customers");
@@ -50,6 +50,8 @@ namespace WebApplication1.Controllers
 
             Post["/Login"] = _ =>
             {
+                var models = _.Bind<User>();
+
                 var body = this.Request.Body;
                 int length = (int)body.Length; // this is a dynamic variable
                 byte[] data = new byte[length];
