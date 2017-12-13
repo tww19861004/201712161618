@@ -8,42 +8,14 @@ using System.IO;
 using System.Data.Common;
 using PetaPoco = LightHelper.PetapocoHelper;
 using LightHelper.NewtonJSONHelper;
+using Tww.MinPrice.Models;
 
 namespace PetaPocoTest
-{
-    [PetaPoco.TableName("User")]
-    [PetaPoco.PrimaryKey("Id")]
-    public partial class User
-    {
-        [PetaPoco.Column("Id")]
-        public Int64 Id { get; set; }
-        [PetaPoco.Column("Name")]
-        public String Name { get; set; }
-        [PetaPoco.Column("Phone")]
-        public String Phone { get; set; }
-        [PetaPoco.Column("Email")]
-        public String Email { get; set; }
-        [PetaPoco.Column("Password")]
-        public String Password { get; set; }
-        [PetaPoco.Column("CreateTime")]
-        public string CreateTime { get; set; }
-    }
+{    
     class Program
     {
         static void Main(string[] args)
         {
-
-            User newUser = new User()
-            {
-                CreateTime = DateTime.Now.ToString("yyyy-MM-dd"),
-                Email = "382233701@qq.com",
-                Name = "1234",
-                Password = "234",
-                Phone = "15062437243"
-            };
-            string str = NewtonJSONHelper.ToJson(newUser);
-            return;
-
             String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
             // create a database "context" object t
             String connectionString = String.Format("Data Source={0};Version=3", fileName);
@@ -60,7 +32,8 @@ namespace PetaPocoTest
                             [Name]         VARCHAR(20)  NOT NULL DEFAULT 'tww',
                             [Phone]        VARCHAR(20)  NOT NULL,
                             [Email]        VARCHAR(20)  NOT NULL,
-                            [Password]     VARCHAR(20)  NOT NULL                            
+                            [Password]     VARCHAR(20)  NOT NULL,
+                            [CreateTime]   TEXT         NOT NULL                           
                             )";
             db.Execute(createQuery);
             #endregion
@@ -75,8 +48,8 @@ namespace PetaPocoTest
             #endregion
 
             #region  alter table add column
-            DateTime d = db.ExecuteScalar<DateTime>("select date('now');");
-            //String alterQuery = @"ALTER TABLE User ADD CreateTime TEXT";            
+            //DateTime d = db.ExecuteScalar<DateTime>("select date('now');");
+            //String alterQuery = @"ALTER TABLE User ADD CreateTime TEXT";
             //db.Execute(alterQuery);
             #endregion
 
@@ -90,9 +63,17 @@ namespace PetaPocoTest
                 //    throw new InvalidOperationException("SIMULATED EXCEPTION");
                 //}
                 PetaPoco.Database db1 = new PetaPoco.Database(connectionString, sqlFactory);
-                return db1.Insert("User", "id", new { Name = "user" + i.ToString(), Phone = "123412341234", Email = "12341@qq.com", Password = "1234" });
+                User u = new User();
+                //u.Id = i;
+                u.Name = i.ToString();
+                u.Phone = "15062437243";
+                u.Email = "382233701@qq.com";
+                u.Password = "1234";
+                u.CreateTime = DateTime.Now.ToString("yyyy-MM-dd");
+                //return db1.Insert("User", "id", new { Name = "user" + i.ToString(), Phone = "123412341234", Email = "12341@qq.com", Password = "1234" });
+                return db1.Insert("User", "id", u);
             };
-            int taskNum = 20;
+            int taskNum = 136;
             Task<object>[] tasks = new Task<object>[taskNum];
             for (int i = 0; i < taskNum; i++)
             {
@@ -122,10 +103,10 @@ namespace PetaPocoTest
             }
             #endregion
 
-            String sql1 = "select * from User order by id desc";
+            String sql1 = "select * from User order by name desc";
             foreach (User rec in db.Query<User>(sql1))
             {
-                Console.WriteLine("{0},{1},{2},{3},{4}", rec.Id, rec.Name, rec.Email, rec.Password, rec.CreateTime);
+                Console.WriteLine("{0},{1},{2},{3},{4}", rec.Id, rec.Name, rec.Email, rec.Password,rec.CreateTime);
             }
             Console.ReadKey();
             return;

@@ -74,6 +74,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Tww.MinPrice.Models\Tww.MinPrice.Models.csproj">
+      <Project>{3ddaaa47-e626-4872-a5e1-56cd99d2ae61}</Project>
+      <Name>Tww.MinPrice.Models</Name>
+    </ProjectReference>
     <ProjectReference Include="..\JSONHelper\JSONHelper.csproj">
       <Project>{b1ba89e4-f8b7-4db2-af9f-4c7ebcd5aeec}</Project>
       <Name>JSONHelper</Name>
