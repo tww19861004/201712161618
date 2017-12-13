@@ -5,6 +5,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Tww.MinPrice.Models;
+using LightHelper.PetapocoHelper;
 
 namespace NancyWebTest.Controllers
 {
@@ -26,13 +28,13 @@ namespace NancyWebTest.Controllers
         public HomeController()
         {
             //首页
-            Get["/nancy/Home"] = parameters => ReturnHomeAction();
+            Get["/Home"] = parameters => ReturnHomeAction();
             //返回字符串演示
-            Get["/nancy/getStringValue"] = parameters => ReturnStringAction();
+            Get["/getStringValue"] = parameters => ReturnStringAction();
             //重定向页面演示
-            Get["/nancy/redirectOtherPage"] = parameters => ReturnRedirectAction();
+            Get["/redirectOtherPage"] = parameters => ReturnRedirectAction();
             //模拟异步
-            Get["/nancy/getstringAsync/{id}", runAsync: true] = async (parameters, cancellationToken) =>
+            Get["/getstringAsync/{id}", runAsync: true] = async (parameters, cancellationToken) =>
             {
                 //Request.Query.id
                 cancellationToken.ThrowIfCancellationRequested();
@@ -49,21 +51,14 @@ namespace NancyWebTest.Controllers
 
         public dynamic ReturnHomeAction()
         {
-            int i = 0;
-            int j = 1;
-            decimal t = j / i;
             //单一数值
             DynamicModel.HelloWorld = "Hello world...";
             //集合数据 1
             List<string> list1 = new List<string>() { "listValue_1", "listValue_2", "listValue_3", "listValue_4" };
-            //集合数据 2 
-            List<TestClass> list2 = new List<TestClass>() {
-                new TestClass("1","张三"),
-                new TestClass("2","李四"),
-                new TestClass("3","王五")
-            };
+            //获取所有的用户 
+            
             DynamicModel.List1 = list1;
-            DynamicModel.List2 = list2;
+            //DynamicModel.List2 = list2;
             return View["Home", DynamicModel];
         }
         public dynamic ReturnStringAction()
