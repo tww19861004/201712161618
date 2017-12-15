@@ -146,7 +146,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\RegisterController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -156,6 +156,10 @@
     <ProjectReference Include="..\..\Tww.MinPrice.Models\Tww.MinPrice.Models.csproj">
       <Project>{3ddaaa47-e626-4872-a5e1-56cd99d2ae61}</Project>
       <Name>Tww.MinPrice.Models</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\CommonHelper\CommonHelper.csproj">
+      <Project>{54aac6ea-de02-4e8f-b4af-9b57b6964688}</Project>
+      <Name>CommonHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\PetapocoHelper\PetapocoHelper.csproj">
       <Project>{9da9991b-2f95-4198-9faf-cc7d3675e7ff}</Project>
