@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Web;
 using Tww.MinPrice.Models;
 using LightHelper.PetapocoHelper;
+using Tww.MinPrice.Services;
 
 namespace NancyWebTest.Controllers
 {
@@ -39,6 +40,12 @@ namespace NancyWebTest.Controllers
                 //Request.Query.id
                 cancellationToken.ThrowIfCancellationRequested();
                 return await Task.FromResult(parameters.id+",Hello World!" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
+            };
+            Get["/getallusers"] = parameters =>
+            {                
+                //Request.Query.id      
+                return Response.AsJson<List<User>>(UserService.GetAllUsers());
+                //return await Response.AsJson<List<User>>(UserService.GetAllUsers().Result);
             };
         }
 

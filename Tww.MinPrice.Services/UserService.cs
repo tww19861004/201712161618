@@ -1,32 +1,32 @@
-﻿using NPoco;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NPoco;
+using System.IO;
 using Tww.MinPrice.Models;
 
-namespace NPocoTest
+namespace Tww.MinPrice.Services
 {
-    class Program
+    public class UserService
     {
-        static void Main(string[] args)
+        public static List<User> GetAllUsers()
         {
-            //var list = await QueryAsync();
             String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
             // create a database "context" object t
             String connectionString = @"Data Source=" + fileName + ";Version=3;";
 
             using (IDatabase db = new Database(connectionString, NPoco.DatabaseType.SQLite))
             {
-                Task<List<User>>.Run(() => { return db.Query<User>().Where(x => x.Id == 1).ToListAsync(); });
+                return db.Query<User>().ToList();
             }
+            return null;
         }
 
-        public static async Task<List<User>> QueryAsync()
+        public static async Task<List<User>> GetAllUsersAsync()
         {
-            return await Task.Run<List<User>>(()=>
+            return await Task.Run<List<User>>(() =>
             {
                 String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
                 // create a database "context" object t
@@ -34,9 +34,9 @@ namespace NPocoTest
 
                 using (IDatabase db = new Database(connectionString, NPoco.DatabaseType.SQLite))
                 {
-                    return Task<List<User>>.Run(() => { return db.Query<User>().Where(x => x.Id == 1).ToListAsync(); });
-                }                
-            });           
+                    return Task<List<User>>.Run(() => { return db.Query<User>().ToList(); });
+                }
+            });
         }
     }
 }
