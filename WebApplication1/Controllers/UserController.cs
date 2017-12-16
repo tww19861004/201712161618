@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using Nancy.ModelBinding;
 using Nancy.Extensions;
 using NancyWebTest.Controllers;
+using System.Threading;
+using System.Net.Http;
 
 namespace WebApplication1.Controllers
 {
@@ -19,6 +21,17 @@ namespace WebApplication1.Controllers
         {
             //get all users
             Get["/"] = _ => Response.AsJson<object>(GetAll());
+            Post["/1234", true] = async (x, ct) =>
+            {
+                var link = await GetQrCode(ct);
+                var model = new { QrPath = link };
+                return View["Index", model];
+            };
+            Get["/UserAsync", runAsync: true] = async (_, cancellationToken) =>
+            {                
+                cancellationToken.ThrowIfCancellationRequested();
+                return await Task.FromResult<List<User>>(UserService.GetAllUsers());
+            };
 
             Get["/adfasdf"] = _ =>
             {
@@ -28,12 +41,7 @@ namespace WebApplication1.Controllers
                     StatusCode = HttpStatusCode.OK,                    
                 };                
                 return Response.AsJson<List<User>>(UserService.GetAllUsers());                
-            };
-            Get["/UserAsync", runAsync: true] = async (_, cancellationToken) =>
-            {                
-                cancellationToken.ThrowIfCancellationRequested();
-                return await Task.FromResult<List<User>>(UserService.GetAllUsers());
-            };
+            };            
 
             Post["/User/Add"] = _ =>
             {
@@ -75,6 +83,34 @@ namespace WebApplication1.Controllers
             {
                 return HandleException(e, String.Format("UserModule.GetAll()"));
             }
-        }       
+        }
+
+        private async Task<object> GetAllAsync()
+        {
+            try
+            {
+                return UserService.GetAllUsers();
+            }
+            catch (Exception e)
+            {
+                return HandleException(e, String.Format("UserModule.GetAll()"));
+            }
+        }
+
+        private async Task<string> GetQrCode(CancellationToken ct)
+        {
+            var client = new HttpClient();
+            client.DefaultRequestHeaders.Add("X-Mashape-Authorization", "oEzDRdFudTpsuLtmgewrIGcuj08tK7PI");
+            var response = await client.GetAsync(
+                    "https://mutationevent-qr-code-generator.p.mashape.com/generate.php?content=http://www.nancyfx.org&type=url", ct);
+
+            var stringContent = await response.Content.ReadAsStringAsync();
+            ct.ThrowIfCancellationRequested();
+            Nancy.Json.JavaScriptSerializer js = new Nancy.Json.JavaScriptSerializer();
+            dynamic model = js.DeserializeObject(stringContent);
+            //dynamic model = JsonObject.Parse(stringContent);
+
+            return model["image_url"];
+        }
     }
 }

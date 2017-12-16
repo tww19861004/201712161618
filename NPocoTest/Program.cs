@@ -19,7 +19,7 @@ namespace NPocoTest
             String connectionString = @"Data Source=" + fileName + ";Version=3;";
 
             using (IDatabase db = new Database(connectionString, NPoco.DatabaseType.SQLite))
-            {
+            {                
                 Task<List<User>>.Run(() => { return db.Query<User>().Where(x => x.Id == 1).ToListAsync(); });
             }
         }

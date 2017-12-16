@@ -127,6 +127,12 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Content\bootstrap-responsive.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\default.min.css" />
+    <Content Include="Content\nancy-logo-resized.png" />
+    <Content Include="Content\nancy-logo.png" />
+    <Content Include="Content\nancy-vertical-bf-tb.png" />
     <Content Include="packages.config" />
     <Content Include="Views\Home.cshtml" />
     <Content Include="Views\Login\Login.cshtml" />
@@ -155,6 +161,8 @@
     <Compile Include="RazorConfig.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Content\img\" />
+    <Folder Include="Content\scripts\" />
     <Folder Include="Modules\" />
     <Folder Include="Views\User\" />
   </ItemGroup>
