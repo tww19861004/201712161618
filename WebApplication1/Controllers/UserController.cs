@@ -17,7 +17,12 @@ namespace WebApplication1.Controllers
         public UserController()
         {
             Get["/User"] = _ =>
-            {                
+            {
+                var response = new Response
+                {
+                    ContentType = "application/json; charset=utf-8",
+                    StatusCode = HttpStatusCode.OK,                    
+                };                
                 return Response.AsJson<List<User>>(UserService.GetAllUsers());                
             };
             Get["/UserAsync", runAsync: true] = async (_, cancellationToken) =>

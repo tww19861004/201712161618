@@ -40,7 +40,33 @@ namespace NancyWebTest.Controllers
                 //Request.Query.id
                 cancellationToken.ThrowIfCancellationRequested();
                 return await Task.FromResult(parameters.id+",Hello World!" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            };            
+            };
+
+            Get["/ok"] = _ =>
+            {
+                var response = new Response
+                {
+                    ContentType = "application/json; charset=utf-8",
+                    StatusCode = HttpStatusCode.OK,
+                };
+                return response;
+            };
+            Get["/small"] = _ =>
+            {
+                var response = new Response();
+                response.Headers.Add("Content-Length", "0");
+                return response;
+            };
+            Get["/novalidcontenttype"] = _ =>
+            {
+                var response = new Response();
+                response.Headers.Add("Content-Type", "application/x-not-valid");
+                return response;
+            };
+            Get["/nocontent"] = _ =>
+            {
+                return HttpStatusCode.NoContent; 
+            };
         }
 
         private async Task<string> GetHelloWorld(CancellationToken cancellationToken)
