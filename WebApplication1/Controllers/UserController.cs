@@ -11,12 +11,15 @@ using Nancy.Extensions;
 
 namespace WebApplication1.Controllers
 {
-    public class UserController: NancyWebTest.Controllers.BaseController
+    public class UserController : Nancy.NancyModule
     //public class UserController : NancyModule
     {
-        public UserController()
+        public UserController() : base("/User")
         {
-            Get["/User"] = _ =>
+            //get all users
+            Get["/"] = _ => Response.AsJson<object>(GetAll());
+
+            Get["/adfasdf"] = _ =>
             {
                 var response = new Response
                 {
@@ -46,7 +49,44 @@ namespace WebApplication1.Controllers
                 var models = this.Bind<User>();
                 return await Task.FromResult<User>(models);
                 //return await Task.FromResult(parameters.id + ",Hello World!" + DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
-            };
+            };            
+
+            // http://localhost:8088/Badges/99
+            //Get["/{id}"] = parameter => { return GetById(parameter.id); };
+
+            // http://localhost:8088/Badges       POST: Badge JSON in body
+            //Post["/"] = parameter => { return this.AddBadge(); };
+
+            // http://localhost:8088/Badges/99    PUT: Badge JSON in body
+            //Put["/{id}"] = parameter => { return this.UpdateBadge(parameter.id); };
+
+            // http://localhost:8088/Badges/99    DELETE:  
+            //Delete["/{id}"] = parameter => { return this.DeleteBadge(parameter.id); };
         }
+
+        private object GetAll()
+        {
+            try
+            {
+                return UserService.GetAllUsers();                
+            }
+            catch (Exception e)
+            {
+                return HandleException(e, String.Format("UserModule.GetAll()"));
+            }
+        }
+
+        Nancy.Response HandleException(Exception e, String operation)
+        {
+            // we were trying this operation
+            String errorContext = String.Format("{1}:{2}: {3} Exception caught in: {0}", operation, DateTime.UtcNow.ToShortDateString(), DateTime.UtcNow.ToShortTimeString(), e.GetType());
+            // write detail to the server log. 
+            Console.WriteLine("----------------------\n{0}\n{1}\n--------------------", errorContext, e.Message);
+            if (e.InnerException != null)
+                Console.WriteLine("{0}\n--------------------", e.InnerException.Message);
+            // but don't be tempted to return detail to the caller as it is a breach of security.
+            return ErrorBuilder.ErrorResponse(this.Request.Url.ToString(), "GET", HttpStatusCode.InternalServerError, "Operational difficulties");
+        }
+
     }
 }
