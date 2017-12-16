@@ -9,13 +9,13 @@
         public IList<string> MimeTypes { get; set; } = new List<string>
         {
             "text/plain",
-            //"text/html",
-            //"text/xml",
-            //"text/css",
-            //"application/json",
-            //"application/x-javascript",
-            //"application/atom+xml",
-            //"application/xml"
+            "text/html",
+            "text/xml",
+            "text/css",
+            "application/json",
+            "application/x-javascript",
+            "application/atom+xml",
+            "application/xml"
         };
     }
 }
