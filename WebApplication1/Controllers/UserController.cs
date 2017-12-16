@@ -8,10 +8,11 @@ using Tww.MinPrice.Models;
 using System.Threading.Tasks;
 using Nancy.ModelBinding;
 using Nancy.Extensions;
+using NancyWebTest.Controllers;
 
 namespace WebApplication1.Controllers
 {
-    public class UserController : Nancy.NancyModule
+    public class UserController : BaseController
     //public class UserController : NancyModule
     {
         public UserController() : base("/User")
@@ -74,19 +75,6 @@ namespace WebApplication1.Controllers
             {
                 return HandleException(e, String.Format("UserModule.GetAll()"));
             }
-        }
-
-        Nancy.Response HandleException(Exception e, String operation)
-        {
-            // we were trying this operation
-            String errorContext = String.Format("{1}:{2}: {3} Exception caught in: {0}", operation, DateTime.UtcNow.ToShortDateString(), DateTime.UtcNow.ToShortTimeString(), e.GetType());
-            // write detail to the server log. 
-            Console.WriteLine("----------------------\n{0}\n{1}\n--------------------", errorContext, e.Message);
-            if (e.InnerException != null)
-                Console.WriteLine("{0}\n--------------------", e.InnerException.Message);
-            // but don't be tempted to return detail to the caller as it is a breach of security.
-            return ErrorBuilder.ErrorResponse(this.Request.Url.ToString(), "GET", HttpStatusCode.InternalServerError, "Operational difficulties");
-        }
-
+        }       
     }
 }

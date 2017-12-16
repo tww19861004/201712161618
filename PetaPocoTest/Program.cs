@@ -33,6 +33,7 @@ namespace PetaPocoTest
                             [Phone]        VARCHAR(20)  NOT NULL,
                             [Email]        VARCHAR(20)  NOT NULL,
                             [Password]     VARCHAR(20)  NOT NULL,
+                            [Active]       INTEGER      NOT NULL DEFAULT 1,
                             [CreateTime]   TEXT         NOT NULL                           
                             )";
             db.Execute(createQuery);
@@ -69,7 +70,8 @@ namespace PetaPocoTest
                 u.Phone = "15062437243";
                 u.Email = "382233701@qq.com";
                 u.Password = "1234";
-                u.CreateTime = DateTime.Now.ToString("yyyy-MM-dd");
+                u.Active = 1;
+                u.CreateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                 //return db1.Insert("User", "id", new { Name = "user" + i.ToString(), Phone = "123412341234", Email = "12341@qq.com", Password = "1234" });
                 return db1.Insert("User", "id", u);
             };
