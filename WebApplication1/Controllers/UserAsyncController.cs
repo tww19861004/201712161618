@@ -25,6 +25,8 @@ namespace WebApplication1.Controllers
                 var res = await UserService.GetAllUsersAsync(ct);
                 return Response.AsJson(res);
             };
+            //get the user by id
+            //Get["/{id}"] = parameter => { return GetById(parameter.id); };
         }
     }
 }
