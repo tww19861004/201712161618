@@ -9,12 +9,29 @@ using Nancy;
 using Nancy.Session;
 using Nancy.Security;
 using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace WebApplication1
 {
-    
+
+    public class CustomJsonSerializer : JsonSerializer
+    {
+        public CustomJsonSerializer()
+        {
+            this.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //this.Formatting = Formatting.Indented;
+        }
+    }
     public class Bootstrapper : Nancy.DefaultNancyBootstrapper
     {
+        protected override void ConfigureApplicationContainer(TinyIoCContainer container)
+        {
+            base.ConfigureApplicationContainer(container);
+
+            container.Register<JsonSerializer, CustomJsonSerializer>();
+        }
+
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
         {
             // Enable Compression with Settings
@@ -23,7 +40,7 @@ namespace WebApplication1
             //settings.MimeTypes.Add("application/vnd.myexample");
             //pipelines.EnableGzipCompression(settings);
 
-            // Enable Compression with Default Settings
+            // Enable Compression with Default Settings            
             pipelines.EnableGzipCompression();            
             base.ApplicationStartup(container, pipelines);
             //JsonSettings.DefaultCharset = "utf-8";
