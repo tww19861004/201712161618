@@ -36,7 +36,7 @@ namespace WebApplication1
                         Contents = (stream) =>
                         {
                             var errorMessage =
-                                Encoding.UTF8.GetBytes("Initialize.pipelines.OnError:" + exception.Message);
+                                Encoding.UTF8.GetBytes("Initialize.pipelines.OnError:" + exception.StackTrace);
                             stream.Write(errorMessage, 0, errorMessage.Length);
                         }
                     };
