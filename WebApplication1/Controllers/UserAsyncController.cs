@@ -23,7 +23,12 @@ namespace WebApplication1.Controllers
             Get["/", runAsync: true] = async (x, ct) =>
             {
                 var res = await UserService.GetAllUsersAsync(ct);
-                return Response.AsJson(res);
+                return Response.AsNewtonJson(res);
+            };
+            Get["/jil", runAsync: true] = async (x, ct) =>
+            {
+                var res = await UserService.GetAllUsersAsync(ct);
+                return Response.AsJilJson(res);
             };
             #region NegotiatorExtensions.test
             Get["/test"] = _ =>
@@ -36,8 +41,10 @@ namespace WebApplication1.Controllers
             Get["/{id:int}", runAsync: true] = async (x, ct) =>
             {
                 var res1 = await UserService.GetUserByIdAsync(ct,x.id);
-                Nancy.Json.JavaScriptSerializer js = new Nancy.Json.JavaScriptSerializer();
-                return js.Serialize(res1);
+                return Jil.JSON.Serialize(res1);
+                //Nancy.Json.JavaScriptSerializer js = new Nancy.Json.JavaScriptSerializer();
+
+                //return js.Serialize(res1);
             };
 
             //return "Received POST request";

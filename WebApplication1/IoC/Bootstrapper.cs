@@ -13,23 +13,22 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
 namespace WebApplication1
-{
-
-    public class CustomJsonSerializer : JsonSerializer
-    {
-        public CustomJsonSerializer()
-        {
-            this.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            //this.Formatting = Formatting.Indented;
-        }
-    }
+{    
+    //public class CustomJsonSerializer : JsonSerializer
+    //{
+    //    public CustomJsonSerializer()
+    //    {
+    //        this.ContractResolver = new CamelCasePropertyNamesContractResolver();
+    //        this.Formatting = Formatting.None;
+    //    }
+    //}
     public class Bootstrapper : Nancy.DefaultNancyBootstrapper
     {
         protected override void ConfigureApplicationContainer(TinyIoCContainer container)
         {
             base.ConfigureApplicationContainer(container);
 
-            container.Register<JsonSerializer, CustomJsonSerializer>();
+            //container.Register<JsonSerializer, CustomJsonSerializer>();
         }
 
         protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
