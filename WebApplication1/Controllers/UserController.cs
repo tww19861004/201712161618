@@ -11,6 +11,7 @@ using Nancy.Extensions;
 using NancyWebTest.Controllers;
 using System.Threading;
 using System.Net.Http;
+using System.Runtime.ExceptionServices;
 
 namespace WebApplication1.Controllers
 {
@@ -87,14 +88,15 @@ namespace WebApplication1.Controllers
 
         private async Task<object> GetAllAsync()
         {
-            try
-            {
-                return UserService.GetAllUsers();
-            }
-            catch (Exception e)
-            {
-                return HandleException(e, String.Format("UserModule.GetAll()"));
-            }
+            return await UserService.GetAllUsersAsync();
+            //try
+            //{
+            //    await UserService.GetAllUsersAsync();
+            //}
+            //catch (Exception e)
+            //{
+            //    await HandleException(e, String.Format("UserModule.GetAll()"));
+            //}
         }
 
         private async Task<string> GetQrCode(CancellationToken ct)
