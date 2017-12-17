@@ -55,7 +55,7 @@ namespace Tww.MinPrice.Services
         {
             ct.ThrowIfCancellationRequested();
             if (newUser.Id > 0)
-                throw new NotImplementedException();
+                throw new InvalidDataException("wrong user's id to add");
             using (IDatabase DatabaseNew = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
             {
                 await DatabaseNew.InsertAsync(newUser);
@@ -66,10 +66,22 @@ namespace Tww.MinPrice.Services
         {
             ct.ThrowIfCancellationRequested();
             if (user.Id <= 0)
-                throw new NotImplementedException();
+                throw new InvalidDataException("wrong user's id to update");
             using (IDatabase DatabaseNew = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
             {
                 int res = await DatabaseNew.UpdateAsync(user);
+                return res;
+            }
+        }
+
+        public static async Task<int> DeleteAsync(CancellationToken ct, User user)
+        {
+            ct.ThrowIfCancellationRequested();
+            if (user.Id <= 0)
+                throw new InvalidDataException("wrong user's id to delete");
+            using (IDatabase DatabaseNew = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
+            {
+                int res = await DatabaseNew.DeleteAsync(user);
                 return res;
             }
         }

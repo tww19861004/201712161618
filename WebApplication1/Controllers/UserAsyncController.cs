@@ -24,12 +24,12 @@ namespace WebApplication1.Controllers
             Get["/", runAsync: true] = async (x, ct) =>
             {
                 var res = await UserService.GetAllUsersAsync(ct);
-                return Response.AsNewtonJson(res);
+                return Jil.JSON.Serialize(res);
             };
-            Get["/jil", runAsync: true] = async (x, ct) =>
+            Get["/newtonjsontest", runAsync: true] = async (x, ct) =>
             {
                 var res = await UserService.GetAllUsersAsync(ct);
-                return Jil.JSON.Serialize(res);
+                return Response.AsNewtonJson(res); 
             };
             #region NegotiatorExtensions.test
             Get["/test"] = _ =>
@@ -49,13 +49,8 @@ namespace WebApplication1.Controllers
             Post["/add",true] = async (x, ct) =>
             {
                 ct.ThrowIfCancellationRequested();
-                //return "Received POST request";
-                var id = this.Request.Body;
-                var length = this.Request.Body.Length;
-                var data = new byte[length];
-                id.Read(data, 0, (int)length);
-                var body = System.Text.Encoding.Default.GetString(data);
-                var newUser = Jil.JSON.Deserialize<User>(body);                
+                //return "Received POST request";                
+                var newUser = this.GetReqObj<User>();
                 await UserService.AddAsync(ct,newUser);
                 return HttpStatusCode.OK;
             };
@@ -67,6 +62,17 @@ namespace WebApplication1.Controllers
                 //{ "Id":8,"Name":"1234","Phone":"130921310556","Email":"382233701@qq.com","Password":"234","CreateTime":"2017-12-11","Active":1}
                 var user = this.GetReqObj<User>();           
                 int res = await UserService.UpdateAsync(ct, user);
+                if (res > 0)
+                    return HttpStatusCode.OK;
+                else
+                    return HttpStatusCode.InternalServerError;
+            };
+
+            Delete["/delete/{id}", true] = async (x, ct) =>
+            {
+                ct.ThrowIfCancellationRequested();
+                var user = await UserService.GetUserByIdAsync(ct, x.id);
+                int res = await UserService.DeleteAsync(ct, user);
                 if (res > 0)
                     return HttpStatusCode.OK;
                 else
