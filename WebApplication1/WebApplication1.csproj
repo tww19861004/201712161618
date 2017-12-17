@@ -148,7 +148,7 @@
     <Content Include="Content\nancy-vertical-bf-tb.png" />
     <Content Include="packages.config" />
     <Content Include="Views\Home.cshtml" />
-    <Content Include="Views\Login\Login.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -168,7 +168,6 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Exceptions\ErrorBuilder.cs" />
     <Compile Include="IoC\FormatterExtensions.cs" />
     <Compile Include="IoC\GzipCompression.cs" />
@@ -180,7 +179,7 @@
     <Folder Include="Content\img\" />
     <Folder Include="Content\scripts\" />
     <Folder Include="Modules\" />
-    <Folder Include="Views\User\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Tww.MinPrice.Models\Tww.MinPrice.Models.csproj">
