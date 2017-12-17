@@ -16,7 +16,7 @@ namespace Tww.MinPrice.Services
             String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
             // create a database "context" object t
             String connectionString = @"Data Source=" + fileName + ";Version=3;";
-
+            throw new InvalidOperationException("simulate the expection state");
             using (IDatabase db = new Database(connectionString, NPoco.DatabaseType.SQLite))
             {
                 return db.Query<User>().ToList();
@@ -25,9 +25,13 @@ namespace Tww.MinPrice.Services
         }
 
         public static async Task<List<User>> GetAllUsersAsync()
-        {
+        {             
             return await Task.Run<List<User>>(() =>
             {
+                if (1 == 1)
+                {
+                    throw new InvalidOperationException("simulate the expection state");
+                }
                 String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
                 // create a database "context" object t
                 String connectionString = @"Data Source=" + fileName + ";Version=3;";

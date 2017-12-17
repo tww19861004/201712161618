@@ -147,6 +147,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\ErrorPipeline.cs" />
     <Compile Include="Exceptions\ServerDataNotFoundException.cs" />
     <Compile Include="IoC\Bootstrapper.cs" />
     <Compile Include="Controllers\BaseAsyncController.cs" />
@@ -158,7 +159,7 @@
     <Compile Include="IoC\GzipCompression.cs" />
     <Compile Include="IoC\GzipCompressionSettings.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RazorConfig.cs" />
+    <Compile Include="IoC\RazorConfig.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\img\" />

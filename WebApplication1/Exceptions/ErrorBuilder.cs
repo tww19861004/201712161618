@@ -1,6 +1,7 @@
 ﻿using System;
 using Nancy;
 using Nancy.Responses;
+using System.Threading.Tasks;
 
 namespace WebApplication1
 {
@@ -22,8 +23,7 @@ namespace WebApplication1
 			response.StatusCode = code;
 			return response;
 		}
-
-	}
+    }
 	
 	// useful info to return in an error
     public class ErrorBody

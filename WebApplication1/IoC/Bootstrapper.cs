@@ -24,8 +24,7 @@ namespace WebApplication1
             //pipelines.EnableGzipCompression(settings);
 
             // Enable Compression with Default Settings
-            pipelines.EnableGzipCompression();
-
+            pipelines.EnableGzipCompression();            
             base.ApplicationStartup(container, pipelines);
             //JsonSettings.DefaultCharset = "utf-8";
             //Nancy.Json.JsonSettings.MaxJsonLength = 20971520;

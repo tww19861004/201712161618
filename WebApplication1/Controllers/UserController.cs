@@ -21,17 +21,29 @@ namespace WebApplication1.Controllers
         public UserController() : base("/User")
         {
             //get all users
-            Get["/"] = _ => Response.AsJson<object>(GetAll());
+            Get["/"] = _ =>
+            {
+                return Response.AsJson<object>(GetAll());
+                //try
+                //{
+                //    return Response.AsJson<object>(GetAll());
+                //}
+                //catch(Exception ex)
+                //{
+                //    return ex.StackTrace+","+ex.Message;
+                //}                
+            };
             Post["/1234", true] = async (x, ct) =>
             {
                 var link = await GetQrCode(ct);
                 var model = new { QrPath = link };
                 return View["Index", model];
             };
-            Get["/UserAsync", runAsync: true] = async (_, cancellationToken) =>
+            Get["/UserAsync", runAsync: true] = async (x, ct) =>
             {                
-                cancellationToken.ThrowIfCancellationRequested();
-                return await Task.FromResult<List<User>>(UserService.GetAllUsers());
+                ct.ThrowIfCancellationRequested();
+                var res = await UserService.GetAllUsersAsync();
+                return Response.AsJson(res);
             };
 
             Get["/adfasdf"] = _ =>
@@ -76,27 +88,28 @@ namespace WebApplication1.Controllers
 
         private object GetAll()
         {
-            try
-            {
-                return UserService.GetAllUsers();                
-            }
-            catch (Exception e)
-            {
-                return HandleException(e, String.Format("UserModule.GetAll()"));
-            }
+            return UserService.GetAllUsers();
+            //try
+            //{
+            //    return UserService.GetAllUsers();
+            //}
+            //catch (Exception e)
+            //{
+            //    //return null;
+            //    return HandleException(e, String.Format("UserModule.GetAll()"));
+            //}
         }
 
         private async Task<object> GetAllAsync()
         {
-            return await UserService.GetAllUsersAsync();
-            //try
-            //{
-            //    await UserService.GetAllUsersAsync();
-            //}
-            //catch (Exception e)
-            //{
-            //    await HandleException(e, String.Format("UserModule.GetAll()"));
-            //}
+            try
+            {
+                return await UserService.GetAllUsersAsync();
+            }
+            catch (Exception e)
+            {
+                return HandleException(e, String.Format("UserModule.GetAll()"));
+            }            
         }
 
         private async Task<string> GetQrCode(CancellationToken ct)
