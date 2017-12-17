@@ -61,6 +61,17 @@ namespace Tww.MinPrice.Services
                 await DatabaseNew.InsertAsync(newUser);
             }
         }
-        
+
+        public static async Task<int> UpdateAsync(CancellationToken ct, User user)
+        {
+            ct.ThrowIfCancellationRequested();
+            if (user.Id <= 0)
+                throw new NotImplementedException();
+            using (IDatabase DatabaseNew = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
+            {
+                int res = await DatabaseNew.UpdateAsync(user);
+                return res;
+            }
+        }
     }
 }

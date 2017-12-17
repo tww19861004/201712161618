@@ -18,7 +18,7 @@ namespace WebApplication1.Controllers
 {
     public class UserAsyncController : BaseController
     {
-        public UserAsyncController() : base("/UserAsync")
+        public UserAsyncController() : base("/userasync")
         {
             //get all users
             Get["/", runAsync: true] = async (x, ct) =>
@@ -58,9 +58,22 @@ namespace WebApplication1.Controllers
                 var newUser = Jil.JSON.Deserialize<User>(body);                
                 await UserService.AddAsync(ct,newUser);
                 return HttpStatusCode.OK;
-            };            
-        }
+            };
 
+            Put["/update", true] = async (x, ct) =>
+            {
+                ct.ThrowIfCancellationRequested();
+                //return "Received POST request";
+                //{ "Id":8,"Name":"1234","Phone":"130921310556","Email":"382233701@qq.com","Password":"234","CreateTime":"2017-12-11","Active":1}
+                var user = this.GetReqObj<User>();           
+                int res = await UserService.UpdateAsync(ct, user);
+                if (res > 0)
+                    return HttpStatusCode.OK;
+                else
+                    return HttpStatusCode.InternalServerError;
+            };
+        }
+        
         // POST /Badges        
     }
 }

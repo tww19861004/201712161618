@@ -5,6 +5,7 @@ using System.Web;
 using Nancy;
 using System.Dynamic;
 using WebApplication1;
+using Nancy.ModelBinding;
 
 namespace NancyWebTest.Controllers
 {
@@ -20,6 +21,18 @@ namespace NancyWebTest.Controllers
 
         public BaseController(string modulePath) : base(modulePath)
         {            
+        }
+
+        protected T GetReqObj<T>()
+        {            
+            //return "Received POST request";
+            var id = this.Request.Body;
+            var length = this.Request.Body.Length;
+            var data = new byte[length];
+            id.Read(data, 0, (int)length);
+            var body = System.Text.Encoding.Default.GetString(data);
+            var obj = Jil.JSON.Deserialize<T>(body);
+            return obj;
         }
 
         private void SetupModelDefaults()
