@@ -25,8 +25,18 @@ namespace WebApplication1.Controllers
                 var res = await UserService.GetAllUsersAsync(ct);
                 return Response.AsJson(res);
             };
+            //test
+            Get["/1"] = _ =>
+            {
+                var res = UserService.GetAllUsers().First();
+                return NegotiatorExtensions.WithModel(Negotiate.WithStatusCode(HttpStatusCode.OK), res);
+            };
             //get the user by id
-            //Get["/{id}"] = parameter => { return GetById(parameter.id); };
+            Get["/{id:int}", runAsync: true] = async (x, ct) =>
+            {
+                var res1 = await UserService.GetUserByIdAsync(ct,x.id);
+                return NegotiatorExtensions.WithModel(Negotiate.WithStatusCode(HttpStatusCode.OK), res1);                
+            };
         }
     }
 }

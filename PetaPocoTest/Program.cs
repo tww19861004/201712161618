@@ -38,6 +38,7 @@ namespace PetaPocoTest
                             )";
             db.Execute(createQuery);
             #endregion
+            return;
 
             #region 非查询命令 delete 清空数据
             db.Execute("DELETE FROM User;VACUUM");

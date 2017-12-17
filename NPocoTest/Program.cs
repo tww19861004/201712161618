@@ -19,18 +19,21 @@ namespace NPocoTest
             IDatabase Database = new Database(connectionString, NPoco.DatabaseType.SQLite);
             // create a database "context" object t                        
 
-            Parallel.For(0, 100, (i) =>
-              {
-                  User user = new User();
-                  //u.Id = i;
-                  user.Name = "tww"+i.ToString();
-                  user.Phone = "15062437243";
-                  user.Email = "382233701@qq.com";
-                  user.Password = "1234";
-                  user.Active = 1;
-                  user.CreateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
-                  Database.InsertAsync(user);
-              });
+            Parallel.For(0, 666, (i) =>
+            {
+                using (IDatabase Database1 = new Database(connectionString, NPoco.DatabaseType.SQLite))
+                {
+                    User user = new User();
+                    //u.Id = i;
+                    user.Name = "tww" + i.ToString();
+                    user.Phone = "15062437243";
+                    user.Email = "382233701@qq.com";
+                    user.Password = "1234";
+                    user.Active = 1;
+                    user.CreateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
+                    Database1.InsertAsync(user);
+                }                   
+            });
 
             //var pk = await Database.InsertAsync(user);
 
