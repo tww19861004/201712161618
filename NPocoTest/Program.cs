@@ -19,7 +19,17 @@ namespace NPocoTest
             IDatabase Database = new Database(connectionString, NPoco.DatabaseType.SQLite);
             // create a database "context" object t                        
 
+            //读取
             Parallel.For(0, 666, (i) =>
+            {
+                using (IDatabase Database1 = new Database(connectionString, NPoco.DatabaseType.SQLite))
+                {
+                    Database1.Query<User>().Where(x => x.Id == i).SingleAsync();
+                }
+            });
+
+            //写入
+            Parallel.For(0, 66, (i) =>
             {
                 using (IDatabase Database1 = new Database(connectionString, NPoco.DatabaseType.SQLite))
                 {

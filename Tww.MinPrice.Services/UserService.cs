@@ -43,9 +43,24 @@ namespace Tww.MinPrice.Services
 
         public static async Task<User> GetUserByIdAsync(CancellationToken ct,int id)
         {
-            //var users = await Database.Query<User>().Where(x => x.UserId == 1).ToListAsync();
-            var user = await DataBase.Query<User>().Where(x => x.Id == id).SingleAsync();
-            return user;     
+            using (IDatabase db = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
+            {
+                //var users = await Database.Query<User>().Where(x => x.UserId == 1).ToListAsync();
+                var user = await db.Query<User>().Where(x => x.Id == id).SingleAsync();
+                return user;
+            }                    
         }
+
+        public static async Task AddAsync(CancellationToken ct, User newUser)
+        {
+            ct.ThrowIfCancellationRequested();
+            if (newUser.Id > 0)
+                throw new NotImplementedException();
+            using (IDatabase DatabaseNew = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
+            {
+                await DatabaseNew.InsertAsync(newUser);
+            }
+        }
+        
     }
 }

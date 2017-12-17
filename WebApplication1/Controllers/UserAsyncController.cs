@@ -12,6 +12,7 @@ using NancyWebTest.Controllers;
 using System.Threading;
 using System.Net.Http;
 using System.Runtime.ExceptionServices;
+using Nancy.Responses;
 
 namespace WebApplication1.Controllers
 {
@@ -28,7 +29,7 @@ namespace WebApplication1.Controllers
             Get["/jil", runAsync: true] = async (x, ct) =>
             {
                 var res = await UserService.GetAllUsersAsync(ct);
-                return Response.AsJilJson(res);
+                return Jil.JSON.Serialize(res);
             };
             #region NegotiatorExtensions.test
             Get["/test"] = _ =>
@@ -42,22 +43,24 @@ namespace WebApplication1.Controllers
             {
                 var res1 = await UserService.GetUserByIdAsync(ct,x.id);
                 return Jil.JSON.Serialize(res1);
-                //Nancy.Json.JavaScriptSerializer js = new Nancy.Json.JavaScriptSerializer();
-
-                //return js.Serialize(res1);
             };
 
-            //return "Received POST request";
-            //var id = this.Request.Body;
-            //var length = this.Request.Body.Length;
-            //var data = new byte[length];
-            //id.Read(data, 0, (int)length);
-            //var body = System.Text.Encoding.Default.GetString(data);
-
-            //var request = JsonConvert.DeserializeObject<SimpleRequest>(body);
-
-            //return 200;
-
+            //{ "Name":"1234","Phone":"13092130556","Email":"382233701@qq.com","Password":"234","CreateTime":"2017-12-11","Active":1}
+            Post["/add",true] = async (x, ct) =>
+            {
+                ct.ThrowIfCancellationRequested();
+                //return "Received POST request";
+                var id = this.Request.Body;
+                var length = this.Request.Body.Length;
+                var data = new byte[length];
+                id.Read(data, 0, (int)length);
+                var body = System.Text.Encoding.Default.GetString(data);
+                var newUser = Jil.JSON.Deserialize<User>(body);                
+                await UserService.AddAsync(ct,newUser);
+                return HttpStatusCode.OK;
+            };            
         }
+
+        // POST /Badges        
     }
 }
