@@ -28,7 +28,7 @@ namespace NPocoTest
                   user.Email = "382233701@qq.com";
                   user.Password = "1234";
                   user.Active = 1;
-                  user.CreateTime = DateTime.Now.ToString("yyyy-MM-dd");
+                  user.CreateTime = DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss");
                   Database.InsertAsync(user);
               });
 
@@ -38,7 +38,7 @@ namespace NPocoTest
 
             //using (IDatabase db = new Database(connectionString, NPoco.DatabaseType.SQLite))
             {
-                Task<List<User>>.Run(() => { return db.Query<User>().Where(x => x.Id == 1).ToListAsync(); });
+                Task<List<User>>.Run(() => { return Database.Query<User>().Where(x => x.Id == 1).ToListAsync(); });
             }
         }
 
