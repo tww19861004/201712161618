@@ -29,7 +29,7 @@ namespace NPocoTest
             });
 
             //写入
-            Parallel.For(0, 66, (i) =>
+            Parallel.For(0,1500, (i) =>
             {
                 using (IDatabase Database1 = new Database(connectionString, NPoco.DatabaseType.SQLite))
                 {

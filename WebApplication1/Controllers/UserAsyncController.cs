@@ -13,6 +13,7 @@ using System.Threading;
 using System.Net.Http;
 using System.Runtime.ExceptionServices;
 using Nancy.Responses;
+using System.IO;
 
 namespace WebApplication1.Controllers
 {
@@ -30,6 +31,21 @@ namespace WebApplication1.Controllers
             {
                 var res = await UserService.GetAllUsersAsync(ct);
                 return Response.AsNewtonJson(res); 
+            };
+            Get["/protobufnet", runAsync: true] = async (x, ct) =>
+            {
+                var res = await UserService.GetAllUsersAsync(ct);
+                using (FileStream stream = File.OpenWrite("test.dat"))
+                {
+                    //序列化后的数据存入文件
+                    ProtoBuf.Serializer.Serialize<List<User>>(stream, res);
+                }                
+                using (FileStream stream = File.OpenRead("test.dat"))
+                {
+                    //从文件中读取数据并反序列化
+                    var test = ProtoBuf.Serializer.Deserialize<List<User>>(stream);
+                }
+                return Response.AsNewtonJson(res);
             };
             #region NegotiatorExtensions.test
             Get["/test"] = _ =>

@@ -15,9 +15,18 @@ namespace JSONCompare
         [ProtoBuf.ProtoMember(2)]
         public string _strName;
         [ProtoBuf.ProtoMember(3)]
-        public List<string> _lstInfo;
+        public List<ChildClass> _lstInfo;
         [ProtoBuf.ProtoMember(4)]
         public Dictionary<int, string> _dictInfo;
+    }
+
+    [ProtoBuf.ProtoContract]
+    class ChildClass
+    {
+        [ProtoBuf.ProtoMember(11)]
+        public int id { get; set; }
+        [ProtoBuf.ProtoMember(2)]
+        public string name { get; set; }
     }
     class Program
     {
@@ -27,10 +36,10 @@ namespace JSONCompare
             MyClass my = new MyClass();
             my._nNumber = 0;
             my._strName = "test";
-            my._lstInfo = new List<string>();
-            my._lstInfo.Add("a");
-            my._lstInfo.Add("b");
-            my._lstInfo.Add("c");
+            my._lstInfo = new List<ChildClass>();
+            my._lstInfo.Add(new ChildClass() { id = 1,name = "tww1"});
+            my._lstInfo.Add(new ChildClass() { id = 2, name = "tww2" });
+            my._lstInfo.Add(new ChildClass() { id = 3, name = "tww3" });
             my._dictInfo = new Dictionary<int, string>();
             my._dictInfo.Add(1, "a");
             my._dictInfo.Add(2, "b");

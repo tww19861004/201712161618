@@ -15,7 +15,8 @@
             "application/json",
             "application/x-javascript",
             "application/atom+xml",
-            "application/xml"
+            "application/xml",
+            "application/x-protobuf"//google的
         };
     }
 }
