@@ -45,7 +45,7 @@ namespace WebApplication1.Controllers
                     //从文件中读取数据并反序列化
                     var test = ProtoBuf.Serializer.Deserialize<List<User>>(stream);
                 }
-                return Response.AsNewtonJson(res);
+                return Response.AsJilJson(res);
             };
             #region NegotiatorExtensions.test
             Get["/test"] = _ =>
