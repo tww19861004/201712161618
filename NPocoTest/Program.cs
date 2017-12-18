@@ -12,7 +12,7 @@ namespace NPocoTest
     class Program
     {
         static void Main(string[] args)
-        {
+        {            
             //var list = await QueryAsync();            
             String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
             String connectionString = @"Data Source=" + fileName + ";Version=3;";
