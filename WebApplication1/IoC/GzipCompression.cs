@@ -47,16 +47,16 @@
 
         private static void CompressResponse(Response response)
         {
-            response.Headers["Content-Encoding"] = "gzip";
+            //response.Headers["Content-Encoding"] = "gzip";
 
-            var contents = response.Contents;
-            response.Contents = responseStream =>
-            {
-                using (var compression = new GZipStream(responseStream, CompressionMode.Compress))
-                {
-                    contents(compression);
-                }
-            };
+            //var contents = response.Contents;
+            //response.Contents = responseStream =>
+            //{
+            //    using (var compression = new GZipStream(responseStream, CompressionMode.Compress))
+            //    {
+            //        contents(compression);
+            //    }
+            //};
         }
 
         private static bool ContentLengthIsTooSmall(Response response)

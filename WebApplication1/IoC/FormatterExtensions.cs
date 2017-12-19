@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +18,18 @@ namespace WebApplication1
         public static Response AsJilJson<TModel>(this IResponseFormatter formatter, TModel model)
         {
             return Jil.JSON.Serialize(model);
+        }
+
+        public static Response AsProtoBufStream<TModel>(this IResponseFormatter formatter, TModel model)
+        {            
+            using (var stream = new MemoryStream())
+            {
+                ProtoBuf.Serializer.Serialize(stream, model);
+                Response rs = new Response();
+                rs.ContentType = "application/x-protobuf";
+                rs.Contents.Invoke(stream);
+                return rs;
+            }            
         }
     }
 }
