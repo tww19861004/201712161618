@@ -37,24 +37,54 @@ namespace WebApplication1.Controllers
                 return Response.AsJilJson(res);
             };
 
-            Get["/test.dat", runAsync: true] = async (x, ct) =>
+            Get["/2018", runAsync: true] = async (x, ct) =>
             {
                 var res = await UserService.GetAllUsersAsync(ct);
-                var stream = new MemoryStream();
+                var response = new Response();
+                response.ContentType = "application/x-protobuf";
+                response.Contents = s =>
                 {
-                    ProtoBuf.Serializer.Serialize(stream, res);
-                    return Response.FromStream(stream, "application/x-protobuf");
-                }
+                    using (var stream = new MemoryStream())
+                    {
+                        ProtoBuf.Serializer.Serialize(stream, res);
+                        byte[] b = stream.ToArray();
+                        s.Write(b, 0, b.Length);
+                        s.Flush();                                                                                       
+                    }
+                };
+                return response;                
             };
 
             Get["/2", runAsync: true] = async (x, ct) =>
             {
-                using (FileStream stream = File.OpenRead(@"D:\MyConfiguration\tww24098\Downloads\test.dat"))
+                using (FileStream stream = File.OpenRead(@"D:\MyConfiguration\tww24098\Downloads\2018"))
                 {
                     //从文件中读取数据并反序列化
                     var res111 = ProtoBuf.Serializer.Deserialize<List<User>>(stream);
                 }
                 return null;
+            };
+
+            Get["/chunked"] = _ =>
+            {
+                var response = new Response();
+                response.ContentType = "text/plain";
+                response.Contents = s =>
+                {
+                    byte[] bytes = System.Text.Encoding.UTF8.GetBytes("Hello World ");
+                    for (int i = 0; i < 10; ++i)
+                    {
+                        for (var j = 0; j < 86; j++)
+                        {
+                            s.Write(bytes, 0, bytes.Length);
+                        }
+                        s.WriteByte(10);
+                        s.Flush();
+                        System.Threading.Thread.Sleep(500);
+                    }
+                };
+
+                return response;
             };
         }
     }
