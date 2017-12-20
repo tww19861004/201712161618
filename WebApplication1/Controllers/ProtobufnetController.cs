@@ -37,27 +37,15 @@ namespace WebApplication1.Controllers
                 return Response.AsJilJson(res);
             };
 
-            Get["/2018", runAsync: true] = async (x, ct) =>
+            Get["/{id}", runAsync: true] = async (x, ct) =>
             {
                 var res = await UserService.GetAllUsersAsync(ct);
-                var response = new Response();
-                response.ContentType = "application/x-protobuf";
-                response.Contents = s =>
-                {
-                    using (var stream = new MemoryStream())
-                    {
-                        ProtoBuf.Serializer.Serialize(stream, res);
-                        byte[] b = stream.ToArray();
-                        s.Write(b, 0, b.Length);
-                        s.Flush();                                                                                       
-                    }
-                };
-                return response;                
+                return Response.AsProtoBuf(res);               
             };
 
-            Get["/2", runAsync: true] = async (x, ct) =>
+            Get["/get/{id}"] = _ =>
             {
-                using (FileStream stream = File.OpenRead(@"D:\MyConfiguration\tww24098\Downloads\2018"))
+                using (FileStream stream = File.OpenRead(@"D:\MyConfiguration\tww24098\Downloads\"+_.id))
                 {
                     //从文件中读取数据并反序列化
                     var res111 = ProtoBuf.Serializer.Deserialize<List<User>>(stream);

@@ -25,7 +25,7 @@ namespace WebApplication1.Controllers
             Get["/", runAsync: true] = async (x, ct) =>
             {
                 var res = await UserService.GetAllUsersAsync(ct);
-                return Jil.JSON.Serialize(res);
+                return Response.AsJson(res);
             };
             Get["/newtonjsontest", runAsync: true] = async (x, ct) =>
             {

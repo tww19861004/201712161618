@@ -17,17 +17,26 @@ namespace WebApplication1
         }
 
         public static Response AsJilJson<TModel>(this IResponseFormatter formatter, TModel model)
-        {            
+        {
             return Jil.JSON.Serialize(model);
         }
 
-        public static Response AsProtoBufStream<TModel>(this IResponseFormatter formatter, TModel model)
+        public static Response AsProtoBuf<TModel>(this IResponseFormatter formatter, TModel model)
         {
-            var stream = new MemoryStream();
+            var response = new Response();
+            response.WithContentType("application/x-protobuf");            
+            response.Contents = s =>
             {
-                ProtoBuf.Serializer.Serialize(stream, model);
-            }
-            return new StreamResponse(() => stream, "application/x-protobuf");
+                using (var stream = new MemoryStream())
+                {
+                    ProtoBuf.Serializer.Serialize(stream, model);
+                    byte[] b = stream.ToArray();
+                    s.Write(b, 0, b.Length);
+                    stream.Flush();
+                    s.Flush();
+                }
+            };
+            return response;
         }
     }
 }

@@ -16,24 +16,18 @@ namespace Tww.MinPrice.Services
         //插入等操作建议用 using
         public readonly static IDatabase DataBase = new Database(ConnectionString, NPoco.DatabaseType.SQLite);
         public static List<User> GetAllUsers()
-        {
-            String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
-            // create a database "context" object t
-            String connectionString = @"Data Source=" + fileName + ";Version=3;";            
-            //using (IDatabase db = new Database(connectionString, NPoco.DatabaseType.SQLite))
+        {          
+            using (IDatabase db = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
             {
-                return DataBase.Query<User>().ToList();
-            }
-            return null;
+                return db.Query<User>().ToList();
+            }            
         }
 
         public static async Task<List<User>> GetAllUsersAsync(CancellationToken ct)
         {
-            ct.ThrowIfCancellationRequested();
-            //String fileName = Path.Combine(Environment.GetFolderPath(System.Environment.SpecialFolder.MyDocuments), "tww1.db");
-            //String connectionString = @"Data Source=" + fileName + ";Version=3;";
+            ct.ThrowIfCancellationRequested();            
             //并发量比较大的时候推荐用 using
-            //using (IDatabase db = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
+            using (IDatabase db = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
             {
                 //return Task<List<User>>.Run(() => { return db.Query<User>().ToList(); });
                 var res = await DataBase.Query<User>().ToListAsync();
@@ -44,8 +38,7 @@ namespace Tww.MinPrice.Services
         public static async Task<User> GetUserByIdAsync(CancellationToken ct,int id)
         {
             using (IDatabase db = new Database(ConnectionString, NPoco.DatabaseType.SQLite))
-            {
-                //var users = await Database.Query<User>().Where(x => x.UserId == 1).ToListAsync();
+            {                
                 var user = await db.Query<User>().Where(x => x.Id == id).SingleAsync();
                 return user;
             }                    

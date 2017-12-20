@@ -74,46 +74,49 @@ namespace JSONCompare
         }
     }
     [ProtoBuf.ProtoContract]
-    class MyClass
-    {
+    public partial class User
+    {        
         [ProtoBuf.ProtoMember(1)]
-        public int _nNumber;
+        public Int64 Id { get; set; }        
         [ProtoBuf.ProtoMember(2)]
-        public string _strName;
+        public String Name { get; set; }        
         [ProtoBuf.ProtoMember(3)]
-        public List<ChildClass> _lstInfo;
+        public String Phone { get; set; }        
         [ProtoBuf.ProtoMember(4)]
-        public Dictionary<int, string> _dictInfo;
+        public String Email { get; set; }        
+        [ProtoBuf.ProtoMember(5)]
+        public String Password { get; set; }        
+        [ProtoBuf.ProtoMember(6)]
+        public string CreateTime { get; set; }        
+        [ProtoBuf.ProtoMember(7)]
+        public int Active { get; set; }
     }
 
-    [ProtoBuf.ProtoContract]
-    class ChildClass
-    {
-        [ProtoBuf.ProtoMember(11)]
-        public int id { get; set; }
-        [ProtoBuf.ProtoMember(2)]
-        public string name { get; set; }
-    }
     class Program
     {
         static void Main(string[] args)
         {
-            List<MyClass> test = new List<MyClass>();
+            List<User> test = new List<User>();
             for (int i=0;i<10000;i++)
             {
-                MyClass my = new MyClass();
-                my._nNumber = i;
-                my._strName = "test";
-                my._lstInfo = new List<ChildClass>();
-                my._lstInfo.Add(new ChildClass() { id = 1, name = "tww1" });
-                my._lstInfo.Add(new ChildClass() { id = 2, name = "tww2" });
-                my._lstInfo.Add(new ChildClass() { id = 3, name = "tww3" });
-                my._dictInfo = new Dictionary<int, string>();
-                my._dictInfo.Add(1, "a");
-                my._dictInfo.Add(2, "b");
-                my._dictInfo.Add(3, "c");
-                test.Add(my);
+                test.Add(new User()
+                { 
+                     Id = i,Name = "tww"+i.ToString(), Active = 1, CreateTime = DateTime.Now.ToString("yyyy-MM-dd"), Email = "382233701@qq.com", Password = "Password1234567"
+                     , Phone = "15062437264"
+                });
             }
+
+            using (FileStream stream = File.OpenWrite("20712201645.dat"))
+            {
+                //序列化后的数据存入文件
+                ProtoBuf.Serializer.Serialize<List<User>>(stream, test);
+            }
+            using (FileStream stream = File.OpenRead("20712201645.dat"))
+            {
+                //从文件中读取数据并反序列化
+                var test1234 = ProtoBuf.Serializer.Deserialize<List<User>>(stream);
+            }
+
             var protoBufSerializer = new JSONCompare.ProtoBufSerializer();
             Stopwatch sw = new Stopwatch();
             sw.Start();
@@ -122,7 +125,7 @@ namespace JSONCompare
             Console.WriteLine("protoBufSerializer: Serializing took {0}ms.", sw.Elapsed.TotalMilliseconds);
             sw.Reset();
             sw.Start();
-            List<MyClass> res1 = protoBufSerializer.Deserialize<List<MyClass>>(res);
+            List<User> res1 = protoBufSerializer.Deserialize<List<User>>(res);
             sw.Stop();
             Console.WriteLine("protoBufSerializer: Deserializing took {0}ms.", sw.Elapsed.TotalMilliseconds);            
 
