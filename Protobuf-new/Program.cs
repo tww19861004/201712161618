@@ -13,20 +13,31 @@ namespace Protobuf_new
     {
         static void Main(string[] args)
         {
-            HttpClient hp = new HttpClient();
-            string test = "http://localhost:12018/protobufnet/2019";
             Stopwatch sw = new Stopwatch();
-            sw.Start();
-            var res = ProtoBuf.Serializer.Deserialize<List<User>>(hp.GetStreamAsync(test).Result);
-            sw.Stop();
-            Console.WriteLine("protobuf一共耗时:"+sw.Elapsed.TotalMilliseconds);
-            HttpClient hp1 = new HttpClient();
-            string test1 = "http://localhost:12018//userasync/newtonjsontest";
-            sw.Reset();
-            sw.Start();
-            var res1 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<User>>(hp1.GetStringAsync(test1).Result);
-            sw.Stop();
-            Console.WriteLine("newtonsoft一共耗时:" + sw.Elapsed.TotalMilliseconds);
+
+            using (HttpClient hp1 = new HttpClient())
+            {
+                hp1.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/json; charset=utf-8");
+                string test1 = "http://localhost:12018//userasync/newtonjsontest";
+                sw.Reset();
+                sw.Start();
+                var res1 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<User>>(hp1.GetStringAsync(test1).Result);
+                sw.Stop();
+                Console.WriteLine("newtonsoft一共耗时:" + sw.Elapsed.TotalMilliseconds + "，返回：" + res1.Count.ToString());
+            }
+
+            System.Threading.Thread.Sleep(100);
+
+            using (HttpClient hp = new HttpClient())
+            {
+                hp.DefaultRequestHeaders.TryAddWithoutValidation("Content-Type", "application/x-protobuf; charset=utf-8");
+                string test = "http://localhost:12018/protobufnet/2019";
+                sw.Reset();
+                sw.Start();
+                var res = ProtoBuf.Serializer.Deserialize<List<User>>(hp.GetStreamAsync(test).Result);
+                sw.Stop();
+                Console.WriteLine("protobuf一共耗时:" + sw.Elapsed.TotalMilliseconds+"，返回："+res.Count.ToString());
+            }                            
             Console.ReadKey();
         }
     }
