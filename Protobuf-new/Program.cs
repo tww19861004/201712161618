@@ -68,7 +68,7 @@ namespace Protobuf_new
                 sw.Start();
                 var res1 = Newtonsoft.Json.JsonConvert.DeserializeObject<List<User>>(hp1.GetStringAsync(test1).Result);
                 sw.Stop();
-                Console.WriteLine("newtonsoft with gzip一共耗时:" + sw.Elapsed.TotalMilliseconds + "，返回：" + res1.Count.ToString());
+                Console.WriteLine("newtonsoft with gzip一共耗时1:" + sw.Elapsed.TotalMilliseconds + "，返回：" + res1.Count.ToString());
             }
 
             System.Threading.Thread.Sleep(100);
