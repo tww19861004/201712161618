@@ -31,7 +31,17 @@ namespace WebApplication1.Controllers
             {
                 var res = await UserService.GetAllUsersAsync(ct);
                 return Response.AsNewtonJson(res); 
-            };            
+            };
+            Get["/jiljsontest", runAsync: true] = async (x, ct) =>
+            {
+                var res = await UserService.GetAllUsersAsync(ct);
+                return Response.AsJilJson(res);
+            };
+            Get["/nancyjsontest", runAsync: true] = async (x, ct) =>
+            {
+                var res = await UserService.GetAllUsersAsync(ct);
+                return Response.AsJson(res);
+            };
             #region NegotiatorExtensions.test
             Get["/test"] = _ =>
             {

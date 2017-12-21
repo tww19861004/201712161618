@@ -29,9 +29,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tww.MinPrice.Services", "Tw
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonHelper", "CommonHelper\CommonHelper.csproj", "{54AAC6EA-DE02-4E8F-B4AF-9B57B6964688}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSONCompare", "JSONCompare\JSONCompare.csproj", "{50F888D7-0FF0-486F-B6BA-E93E5B0A0730}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "protobuf-net", "JSONCompare\protobuf-net.csproj", "{50F888D7-0FF0-486F-B6BA-E93E5B0A0730}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Protobuf-net", "Protobuf-new\Protobuf-net.csproj", "{D79177AF-7C3E-498C-B117-424A562B9DB3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JSONCompare", "Protobuf-new\JSONCompare.csproj", "{D79177AF-7C3E-498C-B117-424A562B9DB3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
