@@ -22,7 +22,7 @@ namespace Protobuf_new
                 sw.Reset();
                 sw.Start();
                 var res1 = Jil.JSON.Deserialize<List<User>>(hp1.GetStringAsync(test1).Result);
-                sw.Stop();
+                sw.Stop();                
                 Console.WriteLine("jiljson一共耗时:" + sw.Elapsed.TotalMilliseconds + "，返回：" + res1.Count.ToString());
             }
 
